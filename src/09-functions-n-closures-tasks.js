@@ -24,7 +24,7 @@
  *
  */
 function getComposition(f, g) {
-  return function (x) {
+  return function fx(x) {
     return f(g(x));
   };
 }
@@ -47,7 +47,7 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
-  return function (x) {
+  return function f(x) {
     return x ** exponent;
   };
 }
@@ -68,7 +68,7 @@ function getPowerFunction(exponent) {
  */
 function getPolynom(...args) {
   const reverse = args.reverse();
-  return function (x) {
+  return function f(x) {
     let result = 0;
     reverse.forEach((item, idx) => {
       result += item * x ** idx;
@@ -94,7 +94,7 @@ function getPolynom(...args) {
  */
 function memoize(func) {
   const calls = {};
-  return function (...args) {
+  return function f(...args) {
     const x = JSON.stringify(args);
     if (!(x in calls)) {
       // eslint-disable-next-line prefer-spread
@@ -123,7 +123,7 @@ function memoize(func) {
 function retry(func, attempts) {
   let count = attempts;
   let res;
-  return function () {
+  return function f() {
     while (count > 0) {
       count -= 1;
       try {
@@ -185,7 +185,7 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn, ...args1) {
-  return function (...args) {
+  return function f(...args) {
     return fn(...(args1.concat(args)));
   };
 }
@@ -210,7 +210,7 @@ function partialUsingArguments(fn, ...args1) {
  */
 function getIdGeneratorFunction(startFrom) {
   let x = startFrom - 1;
-  return function () {
+  return function f() {
     x += 1;
     return x;
   };
